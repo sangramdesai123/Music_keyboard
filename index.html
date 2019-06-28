@@ -1,205 +1,130 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Load the Paper.js library -->
-<link rel="stylesheet" type="text/css" href="circle.css">
-<script type="text/javascript" src="paper-full.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.15/howler.js"></script>
+	<title>clock</title>
+	<style type="text/css">
+		.container{
+			z-index: 99999;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			background-color: black;
+			color: white;
+			border:solid 5px green;
+			font-size: 20px;
+			padding:10px; 
+			text-align: center;
+		}
+		td{
+			width: 100px;
+		}
+		.tim{
+			font-size: 50px;
+			padding-top: 20px;
+		}
+		.t{
+			padding:10px; 
+			border: solid 2px white;
+		}
+		.tim td{
+			border: solid 2px white;
+			border-radius: 50px;
+			padding:5px;
+		}
+		#dm{
+			width: 100%;
+			height: 100px;
+			position: relative;
+			background-color: grey;
+			margin: 0px;
+		}
+		#nav{
+			width: 100%;
+			height: 40px;
+			position: fixed;
+			background-color: #0088f3;
+			margin-left: -10px;
+			margin-top: -10px;
+			text-align: center;
+			font-size: 20px;
+			color: white;
+			padding-top: 15px;
+		}
+		.btn{
+			position: absolute;
+			top: 70%;
+			left: 43%;
+			width: 180px;
+			height: 80px;
+			border-radius: 10px;
+			background-color: #e91e63;
+			color: white;
+			font-size: 18px;
+			cursor: pointer;
+		}
+		.btn:hover{
+			top: 71%;
+			left: 44%;
+		}
 
-<!-- Define inlined PaperScript associate it with myCanvas -->
-<script type="text/paperscript" canvas="myCanvas">
-window.onload = function() {
-  var context = new AudioContext();
-}
-
-var keyData={
-	a:{
-	   color:"purple",
-	   sound : new Howl({
-	 	 src: ['A/bubbles.mp3']
-		})
-	},
-	b:{
-	   color:"purple",
-	   sound : new Howl({
-	 	 src: ['A/clay.mp3']
-		})
-	},
-	c:{
-	   color:"red",
-	   sound : new Howl({
-	 	 src: ['A/confetti.mp3']
-		})
-	},
-	d:{
-	   color:"green",
-	   sound : new Howl({
-	 	 src: ['A/corona.mp3']
-		})
-	},
-	e:{
-	   color:"yellow",
-	   sound : new Howl({
-	 	 src: ['A/dotted-spiral.mp3']
-		})
-	},
-	f:{
-	   color:"blue",
-	   sound : new Howl({
-	 	 src: ['A/flash-1.mp3']
-		})
-	},
-	g:{
-	   color:"skyblue",
-	   sound : new Howl({
-	 	 src: ['A/flash-2.mp3']
-		})
-	},
-	h:{
-	   color:"pink",
-	   sound : new Howl({
-	 	 src: ['A/flash-3.mp3']
-		})
-	},
-	i:{
-	   color:"orange",
-	   sound : new Howl({
-	 	 src: ['A/glimmer.mp3']
-		})
-	},
-	j:{
-	   color:"violet",
-	   sound : new Howl({
-	 	 src: ['A/moon.mp3']
-		})
-	},
-	k:{
-	   color:"chartreuse4",
-	   sound : new Howl({
-	 	 src: ['A/pinwheel.mp3']
-		})
-	},
-	l:{
-	   color:"CornflowerBlue",
-	   sound : new Howl({
-	 	 src: ['A/piston-1.mp3']
-		})
-	},
-	m:{
-	   color:"DarkGreen",
-	   sound : new Howl({
-	 	 src: ['A/piston-2.mp3']
-		})
-	},
-	n:{
-	   color:"DarkOrchid",
-	   sound : new Howl({
-	 	 src: ['A/piston-3.mp3']
-		})
-	},
-	o:{
-	   color:"DeepPink1",
-	   sound : new Howl({
-	 	 src: ['A/prism-1.mp3']
-		})
-	},
-	p:{
-	   color:"firebrick",
-	   sound : new Howl({
-	 	 src: ['A/prism-2.mp3']
-		})
-	},
-	q:{
-	   color:"gold1",
-	   sound : new Howl({
-	 	 src: ['A/prism-3.mp3']
-		})
-	},
-	r:{
-	   color:"gray",
-	   sound : new Howl({
-	 	 src: ['A/splits.mp3']
-		})
-	},
-	s:{
-	   color:"khaki",
-	   sound : new Howl({
-	 	 src: ['A/squiggle.mp3']
-		})
-	},
-	t:{
-	   color:"purple",
-	   sound : new Howl({
-	 	 src: ['A/strike.mp3']
-		})
-	},
-	u:{
-	   color:"grey",
-	   sound : new Howl({
-	 	 src: ['A/suspension.mp3']
-		})
-	},
-	v:{
-	   color:"magenta",
-	   sound : new Howl({
-	 	 src: ['A/timer.mp3']
-		})
-	},
-	w:{
-	   color:"green",
-	   sound : new Howl({
-	 	 src: ['A/ufo.mp3']
-		})
-	},
-	x:{
-	   color:"blue",
-	   sound : new Howl({
-	 	 src: ['A/veil.mp3']
-		})
-	},
-	y:{
-	   color:"orange",
-	   sound : new Howl({
-	 	 src: ['A/wipe.mp3']
-		})
-	},
-	z:{
-	   color:"pink",
-	   sound : new Howl({
-	 	 src: ['A/zig-zag.mp3']
-		})
-	}
-}
-	
-	var circle=[];
-	var str="";
-	
-function onKeyDown(event) {
-	if(keyData[event.key]){
-	str+=event.key;
-		var maxPoint=new Point(view.size.width,view.size.height);
-		var randompoint=Point.random();
-		var point=maxPoint*randompoint;
-		var pa=new Path.Circle(new Point(point),300)
-		pa.fillColor=keyData[event.key].color;
-		keyData[event.key].sound.play();
-		circle.push(pa);
-		console.log(str);//store the key press and after click on send
-	}
-}
-
-function onFrame(event) {
-for(var i=0;i<circle.length;i++){
-	circle[i].fillColor.hue += 1;
-	circle[i].scale(.9);
-}
-	
-	
-}
-	
-</script>
+	</style>
 </head>
 <body>
-	<canvas id="myCanvas" resize></canvas>
+<div id="nav">Musical keyBoard Click on the Blue button</div>
+<canvas>
+
+	
+</canvas>
+<table class="container">
+	<tr>
+		<td colspan="4">Timer</td>
+	</tr>
+	<tr>
+		<td class="t">Days</td>
+		<td class="t">Hours</td>
+		<td class="t">Minutes</td>
+		<td class="t">Second</td>
+	</tr>
+	<tr class="tim">
+		<td id="day">00</td>
+		<td id="hou">00</td>
+		<td id="min">00</td>
+		<td id="sec">00</td>
+	</tr>
+	<tr>
+		<a href="home.html"><button class="btn">Click me to start</button></a>
+	</tr>
+</table>
+<script type="text/javascript">
+	function count() {
+		var event=new Date(2019,8,26);
+		var today=new Date();
+
+		var now=today.getTime();
+		var ev=event.getTime();
+
+		var real=ev-now;
+
+		var s=Math.floor(real/1000);
+		var m=Math.floor(s/60);
+		var h=Math.floor(m/60);
+		var d=Math.floor(h/24);
+		s%=60;m%=60;h%=24;
+
+		h=h<10? "0"+h:h;
+		m=m<10? "0"+m:m;
+		s=s<10? "0"+s:s;
+		document.getElementById("day").textContent=d;
+		document.getElementById("hou").textContent=h;
+		document.getElementById("min").textContent=m;
+		document.getElementById("sec").textContent=s;
+		setTimeout(count,1000);
+	}
+	count();
+</script>
+
+<script type="text/javascript" src="canvas.js"></script>
+
 </body>
 </html>
